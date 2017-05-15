@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>json_test</title>
     <script src="libraries/p5.js" type="text/javascript"></script>
-
+    <script src="jquery.min.js" type="text/javascript"></script>
     <script src="libraries/p5.dom.js" type="text/javascript"></script>
     <script src="libraries/p5.sound.js" type="text/javascript"></script>
 
@@ -13,5 +13,73 @@
     <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style>
   </head>
   <body>
+  <script type="text/javascript">
+    var data = []
+
+      function preload() {
+          data = loadJSON('test1.json')
+          console.log("the length: " + typeof(data.length))
+          console.log("length: " + data.length)
+      }
+
+      function setup() {
+          noLoop();
+          // createCanvas(1000,1000)
+          console.log("the length: " + typeof(data.length))
+          console.log("length: " + data.length)
+          noCanvas()
+      }
+
+      function draw() {
+
+          console.log("the length: " + typeof(data.length))
+          background(51)
+          var j = 1;
+          var k = 0;
+          for (var i = 0; i < 236; i++) {
+//              console.log(data[i].maintext)
+              var re = data[i].retweet_from
+              var notonlyshare = true
+              if (data[i].maintext === "分享图片" || data[i].maintext === "分享视频") {
+                  notonlyshare = false
+              }
+
+              if (re === "" && notonlyshare) { //过滤非原创，并没有成功过滤分享视频和分享图片
+
+                  fill(220)
+                  textSize(10)
+                  try_ajax(data[i].maintext)
+                  console.log("白人问号"+i +": "+ try_ajax(data[i].maintext))
+                  createDiv("主要内容: " + data[i].maintext, 10, 20 * j + 20)
+                j++
+              }
+          }
+      }
+
+    function try_ajax(e) {
+        //line added for the var that will have the result
+        var result = false;
+          $.ajax({
+              url: "https://api.prprpr.me/emotion/wenzhi",
+              data: {
+                  password: "DIYgod",
+                  text: e
+              },
+              type: 'get',
+              //line added to get ajax response in sync
+              async: false,
+              success: function(res) {
+//                  console.log(res);
+                  var jsonres = JSON.parse(res)
+                  var resnum = jsonres["positive"]
+                  //line added to save ajax response in var result
+                  result =  resnum
+              }
+
+          });
+        //line added to return ajax response
+        return result;
+      }
+  </script>
   </body>
 </html>
