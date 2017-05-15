@@ -9,6 +9,7 @@
     <script src="libraries/p5.sound.js" type="text/javascript"></script>
 
     <script src="sketch.js" type="text/javascript"></script>
+    <script src="usedata.js" type="text/javascript"></script>
 
     <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style>
   </head>
@@ -23,21 +24,54 @@
       }
 
       function setup() {
+          createCanvas(800, 600)
+          background('#00193B')
           noLoop();
-          // createCanvas(1000,1000)
           console.log("the length: " + typeof(data.length))
           console.log("length: " + data.length)
-          noCanvas()
       }
 
-      function draw() {
+    function draw() {
 
-          console.log("the length: " + typeof(data.length))
-          background(51)
+        // 写了个Alice
+
+          noStroke()
+          fill(255,10)
+          textSize(40)
+          text("Alice is here",width/2,height/2)
+
+          // 环形1
+          for(var i1 = 0;i1<300;i1++){
+              an = i1/300*TWO_PI
+              var r1 = width/2 + sin(an)* 220
+              var r2 = height/2 - cos(an)* 220
+              var r3 = width/2 + sin(an)* 240
+              var r4 = height/2 - cos(an)* 240
+              stroke(255)
+              // fill(255);
+              strokeWeight(0.2)
+              line(r1,r2,r3,r4)
+              // rotate(PI*r_i/360)
+              // r_i +=1
+
+          }
+
+          // 环形2
+          for(i2 = 0;i2<260;i2++){
+              // background(0,29,59)
+              an2 = i2/260*TWO_PI
+              r5 = width/2 + sin(an2)* 260
+              r6 = height/2 - cos(an2)* 260
+              r7 = width/2 + sin(an2)* 280
+              r8 = height/2 - cos(an2)* 280
+              stroke(160)
+              strokeWeight(0.2)
+              line(r5,r6,r7,r8)
+          }
+
+        //文字内容部分
           var j = 1;
-          var k = 0;
           for (var i = 0; i < 236; i++) {
-//              console.log(data[i].maintext)
               var re = data[i].retweet_from
               var notonlyshare = true
               if (data[i].maintext === "分享图片" || data[i].maintext === "分享视频") {
@@ -45,16 +79,32 @@
               }
 
               if (re === "" && notonlyshare) { //过滤非原创，并没有成功过滤分享视频和分享图片
+                  var testtemp2 = radius_angle(data[i].created_at,2015,2017,50,200);
 
+                  console.log(testtemp2.return_angle);
+                  console.log(testtemp2.return_radius);
                   fill(220)
                   textSize(10)
-                  try_ajax(data[i].maintext)
+                  var moody_color = try_ajax(data[i].maintext)
                   console.log("白人问号"+i +": "+ try_ajax(data[i].maintext))
+                  console.log("内容"+data[i].maintext)
                   createDiv("主要内容: " + data[i].maintext, 10, 20 * j + 20)
+                  real_draw(testtemp2.return_radius,testtemp2.return_angle,moody_color,moody_color)
                 j++
               }
           }
       }
+      // 描点部分
+
+    function real_draw(real_r,an,r_fill,small_r){  // 半径，与x轴偏离角度
+          var an = TWO_PI*an
+          var a = width/2 + sin(an)* real_r //半径可变成呼吸灯
+          var b = height/2 - cos(an)* real_r
+          var c = small_r*10
+          noStroke()
+          fill(Math.floor(r_fill*255)); // 此处可变
+          ellipse(a,b,c,c);
+    }
 
     function try_ajax(e) {
         //line added for the var that will have the result
