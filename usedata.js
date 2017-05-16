@@ -3,6 +3,7 @@
  */
 var alice = "04-14 2:59"
 var nono = "2016-7-26 00:55"
+
 // 时间格式转化
 var real_radius = 0
 function radius_angle(data,start_year,end_year,start_r,end_r){
@@ -108,6 +109,8 @@ function get_angle(a,b){
 
     return (a+b)<0?0:(a+b);
 }
+
+// 测试部分
 console.log("time_date(alice).thour "+time_date(alice).thour)
 console.log("time_date(alice).tminute "+time_date(alice).tminute)
 console.log("qqqq: "+get_angle(time_date(alice).thour,time_date(alice).tminute))
@@ -120,3 +123,29 @@ console.log(get_radius(time_date(alice).tyear,time_date(alice).tmonth,time_date(
 var testtemp = radius_angle(alice)
 console.log(testtemp.return_angle)
 console.log(testtemp.return_radius)
+
+// 获得情绪值
+function try_ajax(e) {
+    //line added for the var that will have the result
+    var result = false;
+    $.ajax({
+        url: "https://api.prprpr.me/emotion/wenzhi",
+        data: {
+            password: "DIYgod",
+            text: e
+        },
+        type: 'get',
+        //line added to get ajax response in sync
+        async: false,
+        success: function(res) {
+//                  console.log(res);
+            var jsonres = JSON.parse(res)
+            var resnum = jsonres["positive"]
+            //line added to save ajax response in var result
+            result =  resnum
+        }
+
+    });
+    //line added to return ajax response
+    return result;
+}
