@@ -20,6 +20,7 @@
       body {
         padding: 0; margin: 0;
         background-color: #00193B;
+        /*background-color: #ff193B;*/
       }
       canvas {
         vertical-align: top;
@@ -40,24 +41,24 @@
     <div id="a_canvas"></div>
     <div id="p5_loading" class="loadingclass">this could be some sweet graphics loading lots of bits.</div>
   <script type="text/javascript">
+
       var data = []
 
 //      选择要加载的数据，此处没办法读取数据条数
-      function preload() {
-          data = loadJSON('test1.json')
-      }
 
       function setup() {
           var mainCanvas = createCanvas(800, 600)
           mainCanvas.parent('#a_canvas')
-          background('#00193B')
-          noLoop();
+//          background('#00193B')
+//          noLoop();
+          frameRate(1)
+          data = loadJSON('test1.json')
           console.log("the length: " + typeof(data.length))
           console.log("length: " + data.length)
       }
 
     function draw() {
-
+        background('#00193B')
           // 环形1
           for(var i1 = 0;i1<300;i1++){
               an = i1/300*TWO_PI
@@ -92,10 +93,10 @@
           noStroke()
           fill(255,10)
           textSize(40)
-          text("\"琳琳姐姐说说",width/2,height/2)
+          text("\"琳琳姐姐说",width/2,height/2)
 
         //文字内容部分
-        /* 👍先不画了试一下
+        // 👍先不画了试一下
           var j = 1;
           // 手动输出数组长度
           for (var i = 0; i < 236; i++) {
@@ -108,18 +109,22 @@
               if (re === "" && notonlyshare) { //过滤非原创，并没有成功过滤分享视频和分享图片
                   var testtemp2 = radius_angle(data[i].created_at,2015,2017,0,300);
 
-                  console.log(testtemp2.return_angle);
-                  console.log(testtemp2.return_radius);
+//                  console.log(testtemp2.return_angle);
+//                  console.log(testtemp2.return_radius);
                   fill(220)
                   textSize(10)
-                  var moody_color = try_ajax(data[i].maintext)
-                  console.log("白人问号"+i +": "+ try_ajax(data[i].maintext))
-                  console.log("内容"+data[i].maintext)
+                  var moody_color = 0.5
+//                  var moody_color = try_ajax(data[i].maintext)
+//                  console.log("白人问号"+i +": "+ try_ajax(data[i].maintext))
+//                  console.log("内容"+data[i].maintext)
 //                  createDiv("主要内容: " + data[i].maintext, 10, 20 * j + 20)
-                  real_draw(testtemp2.return_radius,testtemp2.return_angle,moody_color,moody_color)
+                  real_draw(testtemp2.return_radius,testtemp2.return_angle,moody_color,moody_color,data[i].maintext)
+//
+
                 j++
               }
-          }*/
+          }
+          //
       }
 
 
