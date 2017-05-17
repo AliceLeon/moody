@@ -83,6 +83,7 @@
     function preload() {
       data = loadJSON('user1.json')
       myFont = loadFont('FZQKBYSJW.TTF');
+      clockFont = loadFont('Oswald-Medium.ttf');
     }
 
     function setup() {
@@ -123,6 +124,16 @@
     function draw() {
           background('#00193B')
           translate(width / 2, height / 2)
+        textSize(100)
+        //组件
+//        strokeWeight(3)
+//        stroke(255,10)
+//        line(0,0,width/4,-height/4)
+//        noStroke()
+//        textFont(clockFont)
+//        fill(255,10)
+//        line(0,0,width/2,0)
+//          text("12:00",width/4,50);
 
 
           for (var i = 0; i < a_circle.length; i++) {
@@ -144,10 +155,10 @@
           // 一段文字
 
           noStroke()
-          fill(255, 10)
+          fill(255, 20)
           textSize(50)
           textFont(myFont)
-          text("\"青青况_", 0, 0)
+          text("\"青青况_", 0, 25)
 
           for (var i = 0; i < data_spot.length; i++) {
               //            data_spot[i].movea();
