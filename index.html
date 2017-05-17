@@ -19,7 +19,6 @@
 
   <script src="Star.js" type="text/javascript"></script>
   <!--loading-->
-  <script type="text/javascript" src="loading.js"></script>
 
   <style>
     body {
@@ -68,13 +67,13 @@
 
 
     function preload() {
-      data = loadJSON('user4.json')
+      data = loadJSON('user1.json')
       myFont = loadFont('FZQKBYSJW.TTF');
     }
 
     function setup() {
         var size_num = 1
-      var mainCanvas = createCanvas(1000,1000)
+      var mainCanvas = createCanvas(windowWidth,1000)
       mainCanvas.parent('#a_canvas')
         //          background('#00193B')
         //          noLoop();
@@ -83,9 +82,9 @@
       // 选择要加载的数据，此处没办法读取数据条数
       //          data = loadJSON('user2.json')
 
-      for (var i = 0; i < 117; i++) {
+      for (var i = 0; i < 1351; i++) {
         // 数据表头、初始年份、结束年份、半径范围
-        var angletemp = radius_angle(data[i].created_at, 2015, 2017, 0, 500);
+        var angletemp = radius_angle(data[i].created_at, 2011, 2017, 0, 500);
 
         data_spot.push(new Moody());
         data_spot[i].an = angletemp.return_angle;
@@ -132,9 +131,9 @@
 
           noStroke()
           fill(255, 10)
-          textSize(40)
+          textSize(50)
           textFont(myFont)
-          text("\"琳琳姐姐说", 0, 0)
+          text("\"青青况_", 0, 0)
 
           for (var i = 0; i < data_spot.length; i++) {
               //            data_spot[i].movea();
@@ -199,22 +198,22 @@
 //        ellipse(this.temp_x, this.temp_y, 5,5);
           };
           this.showtext = function () {
-              textSize(25);
+              textSize(20);
               fill(255);
               if (this.moody_thing > 0.5) {
                   if (dist(mouseX, mouseY, this.temp_x + width / 2, this.temp_y + height / 2) < this.moody_thing * 10) {
                       text("\" " + this.a_text, 0, 0)
-                      text(this.b_text, 0, 29)
+                      text(this.b_text, 0, 23)
                   }
               } else if (this.moody_thing < 0.5) {
                   if (dist(mouseX, mouseY, this.temp_x + width / 2, this.temp_y + height / 2) < (1 - this.moody_thing) * 10) {
                       text("\" " + this.a_text, 0, 0)
-                      text(this.b_text, 0, 29)
+                      text(this.b_text, 0, 23)
                   }
               } else {
                   if (dist(mouseX, mouseY, this.temp_x + width / 2, this.temp_y + height / 2) < this.moody_thing * 10) {
                       text("\" " + this.a_text, 0, 0)
-                      text(this.b_text, 0, 29)
+                      text(this.b_text, 0, 23)
                   }
               }
           }
