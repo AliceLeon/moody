@@ -106,8 +106,10 @@ function get_angle(a,b){
     // console.log('A'+a)
     b = b/60/24
     // console.log('b'+b)
+    2*Math.PI*(a+b)
 
-    return (a+b)<0?0:(a+b);
+    // return 2*Math.PI*(a+b)<0?0:2*Math.PI*(a+b);
+    return 2*Math.PI*(a+b);
 }
 
 // 测试部分

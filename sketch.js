@@ -9,9 +9,4 @@ function real_draw(real_r,an,r_fill,small_r,a_text){  // 半径，与x轴偏离�
     fill(255,Math.floor(r_fill*255)); // 此处可变
     ellipse(a,b,c,c);
 
-    if( abs(Math.sqrt((mouseX-a)*(mouseX-a)+(mouseY-b)*(mouseY-b))-c)<c){
-        text(a_text,a,b)
-        console.log("可以很强")
-    }
-
 }

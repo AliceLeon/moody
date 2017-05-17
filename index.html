@@ -43,88 +43,146 @@
   <script type="text/javascript">
 
       var data = []
+      var data_spot= []
 
-//      选择要加载的数据，此处没办法读取数据条数
+      function preload(){
+          data = loadJSON('user1.json')
+          myFont = loadFont('FZQKBYSJW.TTF');
+      }
 
       function setup() {
-          var mainCanvas = createCanvas(800, 600)
+          var mainCanvas = createCanvas(1000, 1000)
           mainCanvas.parent('#a_canvas')
 //          background('#00193B')
 //          noLoop();
-          frameRate(1)
-          data = loadJSON('test1.json')
-          console.log("the length: " + typeof(data.length))
-          console.log("length: " + data.length)
+//          frameRate(1000)
+
+          // 选择要加载的数据，此处没办法读取数据条数
+//          data = loadJSON('user2.json')
+
+          for (var i=0; i<1353; i++) {
+              // 数据表头、初始年份、结束年份、半径范围
+              var angletemp = radius_angle(data[i].created_at,2010,2017,0,500);
+
+              data_spot.push(new Moody());
+              data_spot[i].an = angletemp.return_angle;
+              data_spot[i].real_r = angletemp.return_radius;
+
+
+              console.log('an'+data_spot[i].an)
+              data_spot[i].moody_thing = data[i].emotion_num;
+              data_spot[i].a_text = data[i].text;
+
+
+          }
       }
 
     function draw() {
         background('#00193B')
-          // 环形1
-          for(var i1 = 0;i1<300;i1++){
-              an = i1/300*TWO_PI
-              var r1 = width/2 + sin(an)* 220
-              var r2 = height/2 - cos(an)* 220
-              var r3 = width/2 + sin(an)* 240
-              var r4 = height/2 - cos(an)* 240
-              stroke(255)
-              // fill(255);
-              strokeWeight(0.2)
-              line(r1,r2,r3,r4)
-              // rotate(PI*r_i/360)
-              // r_i +=1
 
+        // 环形1
+        for (var i1 = 0; i1 < 300; i1++) {
+            an = i1 / 300 * TWO_PI
+            var r1 = width / 2 + sin(an) * 220
+            var r2 = height / 2 - cos(an) * 220
+            var r3 = width / 2 + sin(an) * 240
+            var r4 = height / 2 - cos(an) * 240
+            stroke(255)
+            // fill(255);
+            strokeWeight(0.2)
+            line(r1, r2, r3, r4)
+            // rotate(PI*r_i/360)
+            // r_i +=1
+
+        }
+
+        // 环形2
+        for (i2 = 0; i2 < 260; i2++) {
+            // background(0,29,59)
+            an2 = i2 / 260 * TWO_PI
+            r5 = width / 2 + sin(an2) * 260
+            r6 = height / 2 - cos(an2) * 260
+            r7 = width / 2 + sin(an2) * 280
+            r8 = height / 2 - cos(an2) * 280
+            stroke(160)
+            strokeWeight(0.2)
+            line(r5, r6, r7, r8)
+        }
+
+        // 一段文字
+
+        noStroke()
+        fill(255, 10)
+        textSize(40)
+        textFont(myFont)
+        text("\"琳琳姐姐说", width / 2, height / 2)
+
+        for (var i = 0; i < data_spot.length; i++) {
+//            data_spot[i].movea();
+            data_spot[i].count_pos();
+            data_spot[i].display();
+            data_spot[i].hover_big();
+            console.log('data_spot[i].a_text'+data_spot[i].a_text)
+
+
+//            console.log('an'+data_spot[i].temp_an)
+            data_spot[i].showtext();
+        }
+
+    }
+
+
+      function Moody() {
+          this.an = 0;
+          this.real_r = 0;
+          this.moody_thing = 0;
+          this.temp_x = 0.0;
+          this.temp_y = 0.0;
+          this.ugly_r = sin(frameCount)+random(-4,3)
+
+          this.speed = 1;
+          this.a_text = "original value"
+//          this.temp_an = 2* Math.PI * this.an
+
+
+          this.count_pos = function () {
+              this.temp_x = parseFloat(width/2 + sin(this.an)* this.real_r);
+              this.temp_y = parseFloat(height/2 - cos(this.an)* this.real_r);
           }
 
-          // 环形2
-          for(i2 = 0;i2<260;i2++){
-              // background(0,29,59)
-              an2 = i2/260*TWO_PI
-              r5 = width/2 + sin(an2)* 260
-              r6 = height/2 - cos(an2)* 260
-              r7 = width/2 + sin(an2)* 280
-              r8 = height/2 - cos(an2)* 280
-              stroke(160)
-              strokeWeight(0.2)
-              line(r5,r6,r7,r8)
-          }
+          this.movea = function() {
+              console.log("QAQ")
+              this.temp_x += random(-this.speed, this.speed);
+              this.temp_y += random(-this.speed, this.speed);
+          };
 
-          // 一段文字
+          this.display = function() {
+              noStroke()
+//              fill(255,Math.floor(this.moody_thing*255));
+              fill(Math.floor(this.moody_thing*255),Math.floor(this.moody_thing*255),Math.floor(this.moody_thing*255));
+              ellipse(this.temp_x,this.temp_y, this.moody_thing*10+sin(frameCount)+random(-1,1)), this.moody_thing*10+sin(frameCount+random(-1,1));
+          };
+          this.showtext = function() {
+              if(dist( mouseX, mouseY, this.temp_x,this.temp_y) < this.moody_thing*10){
+                  // textSize()
+                  fill(255)
+                  textSize(20)
+                  textLeading(20)
+//                  textFont(myFont)
+//                  textFont("ST Song")
 
-          noStroke()
-          fill(255,10)
-          textSize(40)
-          text("\"琳琳姐姐说",width/2,height/2)
+//                  text(this.a_text,this.temp_x+this.moody_thing*10,this.temp_y)
 
-        //文字内容部分
-        // 👍先不画了试一下
-          var j = 1;
-          // 手动输出数组长度
-          for (var i = 0; i < 236; i++) {
-              var re = data[i].retweet_from
-              var notonlyshare = true
-              if (data[i].maintext === "分享图片" || data[i].maintext === "分享视频") {
-                  notonlyshare = false
+                  text("\" "+this.a_text,width/2,height/2,50,200)
+
               }
-
-              if (re === "" && notonlyshare) { //过滤非原创，并没有成功过滤分享视频和分享图片
-                  var testtemp2 = radius_angle(data[i].created_at,2015,2017,0,300);
-
-//                  console.log(testtemp2.return_angle);
-//                  console.log(testtemp2.return_radius);
-                  fill(220)
-                  textSize(10)
-                  var moody_color = 0.5
-//                  var moody_color = try_ajax(data[i].maintext)
-//                  console.log("白人问号"+i +": "+ try_ajax(data[i].maintext))
-//                  console.log("内容"+data[i].maintext)
-//                  createDiv("主要内容: " + data[i].maintext, 10, 20 * j + 20)
-                  real_draw(testtemp2.return_radius,testtemp2.return_angle,moody_color,moody_color,data[i].maintext)
-//
-
-                j++
+          }
+          this.hover_big = function() {
+              if(dist( mouseX, mouseY, this.temp_x,this.temp_y) < this.moody_thing*10){
+                  // textSize()
+                  ellipse(this.temp_x,this.temp_y, this.moody_thing*14, this.moody_thing*14);
               }
           }
-          //
       }
 
 
