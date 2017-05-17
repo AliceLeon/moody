@@ -1,135 +1,154 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>json_test</title>
-    <!--p5库-->
-    <script src="libraries/p5.js" type="text/javascript"></script>
-    <script src="jquery.min.js" type="text/javascript"></script>
-    <script src="libraries/p5.dom.js" type="text/javascript"></script>
-    <script src="libraries/p5.sound.js" type="text/javascript"></script>
 
-    <!--存放绘画函数-->
-    <script src="sketch.js" type="text/javascript"></script>
+<head>
+  <meta charset="UTF-8">
+  <title>json_test</title>
+  <!--p5库-->
+  <script src="libraries/p5.js" type="text/javascript"></script>
+  <script src="jquery.min.js" type="text/javascript"></script>
+  <script src="libraries/p5.dom.js" type="text/javascript"></script>
+  <script src="libraries/p5.sound.js" type="text/javascript"></script>
 
-    <!--数据转化的部分-->
-    <script src="usedata.js" type="text/javascript"></script>
-    <!--<link rel="stylesheet" href="">-->
+  <!--存放绘画函数-->
+  <script src="sketch.js" type="text/javascript"></script>
 
-    <style>
-      body {
-        padding: 0; margin: 0;
-        background-color: #00193B;
-        /*background-color: #ff193B;*/
-      }
-      canvas {
-        vertical-align: top;
-      }
-      #a_canvas{
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-      }
-      .loadingclass{
-        font-size: 30px;
-        color: #fff;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="a_canvas"></div>
-    <div id="p5_loading" class="loadingclass">this could be some sweet graphics loading lots of bits.</div>
-  <script type="text/javascript">
+  <!--数据转化的部分-->
+  <script src="usedata.js" type="text/javascript"></script>
+  <!--<link rel="stylesheet" href="">-->
 
-      var data = []
-      var data_spot= []
+  <script src="Star.js" type="text/javascript"></script>
+  <!--loading-->
+  <script type="text/javascript" src="loading.js"></script>
 
-      function preload(){
-          data = loadJSON('user1.json')
-          myFont = loadFont('FZQKBYSJW.TTF');
-      }
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      background-color: #00193B;
+      /*background-color: #ff193B;*/
+    }
+    
+    canvas {
+      vertical-align: top;
+    }
+    
+    #a_canvas {
 
-      function setup() {
-          var mainCanvas = createCanvas(1000, 1000)
-          mainCanvas.parent('#a_canvas')
-//          background('#00193B')
-//          noLoop();
-//          frameRate(1000)
+      position: absolute;
+      transform: translate(-50%,-50%);
 
-          // 选择要加载的数据，此处没办法读取数据条数
-//          data = loadJSON('user2.json')
-
-          for (var i=0; i<1353; i++) {
-              // 数据表头、初始年份、结束年份、半径范围
-              var angletemp = radius_angle(data[i].created_at,2010,2017,0,500);
-
-              data_spot.push(new Moody());
-              data_spot[i].an = angletemp.return_angle;
-              data_spot[i].real_r = angletemp.return_radius;
-
-
-              console.log('an'+data_spot[i].an)
-              data_spot[i].moody_thing = data[i].emotion_num;
-              data_spot[i].a_text = data[i].text;
-
-
-          }
-      }
-
-    function draw() {
-        background('#00193B')
-
-        // 环形1
-        for (var i1 = 0; i1 < 300; i1++) {
-            an = i1 / 300 * TWO_PI
-            var r1 = width / 2 + sin(an) * 220
-            var r2 = height / 2 - cos(an) * 220
-            var r3 = width / 2 + sin(an) * 240
-            var r4 = height / 2 - cos(an) * 240
-            stroke(255)
-            // fill(255);
-            strokeWeight(0.2)
-            line(r1, r2, r3, r4)
-            // rotate(PI*r_i/360)
-            // r_i +=1
-
-        }
-
-        // 环形2
-        for (i2 = 0; i2 < 260; i2++) {
-            // background(0,29,59)
-            an2 = i2 / 260 * TWO_PI
-            r5 = width / 2 + sin(an2) * 260
-            r6 = height / 2 - cos(an2) * 260
-            r7 = width / 2 + sin(an2) * 280
-            r8 = height / 2 - cos(an2) * 280
-            stroke(160)
-            strokeWeight(0.2)
-            line(r5, r6, r7, r8)
-        }
-
-        // 一段文字
-
-        noStroke()
-        fill(255, 10)
-        textSize(40)
-        textFont(myFont)
-        text("\"琳琳姐姐说", width / 2, height / 2)
-
-        for (var i = 0; i < data_spot.length; i++) {
-//            data_spot[i].movea();
-            data_spot[i].count_pos();
-            data_spot[i].display();
-            data_spot[i].hover_big();
-            console.log('data_spot[i].a_text'+data_spot[i].a_text)
-
-
-//            console.log('an'+data_spot[i].temp_an)
-            data_spot[i].showtext();
-        }
+      /*transform: scale(0.5);*/
+      left: 50%;
+      top: 50%;
 
     }
+    
+    .loadingclass {
+      font-size: 30px;
+      color: rgb(75, 93, 120);
+      text-align: center;
+      line-height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="a_canvas"></div>
+  <div id="p5_loading" class="loadingclass">
+    <!--this could be some sweet graphics loading lots of bits.-->
+    ≥⩊≤
+  </div>
+  <script type="text/javascript">
+    var data = []
+    var data_spot = []
+    var stars = []
+    var a_circle = []
+    var speed
+
+
+    function preload() {
+      data = loadJSON('user4.json')
+      myFont = loadFont('FZQKBYSJW.TTF');
+    }
+
+    function setup() {
+        var size_num = 1
+      var mainCanvas = createCanvas(1000,1000)
+      mainCanvas.parent('#a_canvas')
+        //          background('#00193B')
+        //          noLoop();
+        //          frameRate(1000)
+
+      // 选择要加载的数据，此处没办法读取数据条数
+      //          data = loadJSON('user2.json')
+
+      for (var i = 0; i < 117; i++) {
+        // 数据表头、初始年份、结束年份、半径范围
+        var angletemp = radius_angle(data[i].created_at, 2015, 2017, 0, 500);
+
+        data_spot.push(new Moody());
+        data_spot[i].an = angletemp.return_angle;
+        data_spot[i].real_r = angletemp.return_radius;
+
+
+//        console.log('an' + data_spot[i].an)
+        data_spot[i].moody_thing = data[i].emotion_num;
+        data_spot[i].a_text = data[i].text;
+        data_spot[i].b_text = data[i].created_at;
+        data_spot[i].c_text = data[i].emotion_num;
+      }
+      for (var i = 0; i < 150; i++) {
+        a_circle.push(new Linecircle())
+      }
+      for (var i = 0; i < 1700; i++) {
+            stars[i] = new Star();
+      }
+
+    }
+
+    function draw() {
+          background('#00193B')
+          translate(width / 2, height / 2)
+
+
+          for (var i = 0; i < a_circle.length; i++) {
+              a_circle[i].an = (TWO_PI * i / a_circle.length)
+              a_circle[i].display();
+              a_circle[i].hover_big();
+          }
+
+          //stars
+          speed = map(mouseY, 0, height, 3, 1);
+//       background(0,30);
+          // translate(width / 2, height / 2);
+          for (var k = 0; k < stars.length; k++) {
+//          console.log("star works")
+              stars[k].update();
+              stars[k].show();
+          }
+
+          // 一段文字
+
+          noStroke()
+          fill(255, 10)
+          textSize(40)
+          textFont(myFont)
+          text("\"琳琳姐姐说", 0, 0)
+
+          for (var i = 0; i < data_spot.length; i++) {
+              //            data_spot[i].movea();
+              data_spot[i].count_pos();
+              data_spot[i].display();
+              data_spot[i].hover_big();
+              // console.log('data_spot[i].a_text' + data_spot[i].a_text)
+
+
+              //            console.log('an'+data_spot[i].temp_an)
+              data_spot[i].showtext();
+          }
+
+      }
 
 
       function Moody() {
@@ -138,54 +157,109 @@
           this.moody_thing = 0;
           this.temp_x = 0.0;
           this.temp_y = 0.0;
-          this.ugly_r = sin(frameCount)+random(-4,3)
+          this.ugly_r = sin(frameCount) + random(-4, 3)
 
           this.speed = 1;
           this.a_text = "original value"
-//          this.temp_an = 2* Math.PI * this.an
+          this.b_text = "time value"
+          this.c_text = "mood value"
+          //          this.temp_an = 2* Math.PI * this.an
 
-
+//      this.an+=PI
           this.count_pos = function () {
-              this.temp_x = parseFloat(width/2 + sin(this.an)* this.real_r);
-              this.temp_y = parseFloat(height/2 - cos(this.an)* this.real_r);
+              this.temp_x = parseFloat(sin(this.an) * this.real_r);
+              this.temp_y = -parseFloat(cos(this.an) * this.real_r);
           }
 
-          this.movea = function() {
+          this.movea = function () {
               console.log("QAQ")
               this.temp_x += random(-this.speed, this.speed);
               this.temp_y += random(-this.speed, this.speed);
           };
 
-          this.display = function() {
+          this.display = function () {
               noStroke()
-//              fill(255,Math.floor(this.moody_thing*255));
-              fill(Math.floor(this.moody_thing*255),Math.floor(this.moody_thing*255),Math.floor(this.moody_thing*255));
-              ellipse(this.temp_x,this.temp_y, this.moody_thing*10+sin(frameCount)+random(-1,1)), this.moody_thing*10+sin(frameCount+random(-1,1));
+              //              fill(255,Math.floor(this.moody_thing*255));
+              var random_start = random(-1, 1)
+              if (this.moody_thing > 0.5) {
+                  fill(255, 254, 184, this.moody_thing * 255)
+                  ellipse(this.temp_x, this.temp_y, this.moody_thing * 8 + sin(frameCount * 100 + random_start) / 2, this.moody_thing * 8 + sin(frameCount * 100 + random_start) / 2);
+//
+              } else if (this.moody_thing < 0.5) {
+                  fill(58, 170, 255, (1 - this.moody_thing) * 255)
+                  ellipse(this.temp_x, this.temp_y, (1 - this.moody_thing) * 8 + sin(frameCount * 100 + random_start) / 2, (1 - this.moody_thing) * 8 + sin(frameCount * 100 + random_start) / 2);
+//
+              } else {
+                  fill(100, 100)
+                  ellipse(this.temp_x, this.temp_y, 5, 5);
+              }
+//        fill(Math.floor(this.moody_thing * 255));
+//        ellipse(this.temp_x, this.temp_y, this.moody_thing * 10 + sin(frameCount * 100 + random_start) / 2), this.moody_thing * 10 + sin(frameCount * 100 + random_start) / 2;
+//        ellipse(this.temp_x, this.temp_y, 3+ this.moody_thing * 3 + sin(frameCount * 100 + random_start) / 2), 7+this.moody_thing * 10 + sin(frameCount * 100 + random_start) / 2;
+//        ellipse(this.temp_x, this.temp_y, 5,5);
           };
-          this.showtext = function() {
-              if(dist( mouseX, mouseY, this.temp_x,this.temp_y) < this.moody_thing*10){
-                  // textSize()
-                  fill(255)
-                  textSize(20)
-                  textLeading(20)
-//                  textFont(myFont)
-//                  textFont("ST Song")
-
-//                  text(this.a_text,this.temp_x+this.moody_thing*10,this.temp_y)
-
-                  text("\" "+this.a_text,width/2,height/2,50,200)
-
+          this.showtext = function () {
+              textSize(25);
+              fill(255);
+              if (this.moody_thing > 0.5) {
+                  if (dist(mouseX, mouseY, this.temp_x + width / 2, this.temp_y + height / 2) < this.moody_thing * 10) {
+                      text("\" " + this.a_text, 0, 0)
+                      text(this.b_text, 0, 29)
+                  }
+              } else if (this.moody_thing < 0.5) {
+                  if (dist(mouseX, mouseY, this.temp_x + width / 2, this.temp_y + height / 2) < (1 - this.moody_thing) * 10) {
+                      text("\" " + this.a_text, 0, 0)
+                      text(this.b_text, 0, 29)
+                  }
+              } else {
+                  if (dist(mouseX, mouseY, this.temp_x + width / 2, this.temp_y + height / 2) < this.moody_thing * 10) {
+                      text("\" " + this.a_text, 0, 0)
+                      text(this.b_text, 0, 29)
+                  }
               }
           }
-          this.hover_big = function() {
-              if(dist( mouseX, mouseY, this.temp_x,this.temp_y) < this.moody_thing*10){
-                  // textSize()
-                  ellipse(this.temp_x,this.temp_y, this.moody_thing*14, this.moody_thing*14);
+          this.hover_big = function () {
+              if (this.moody_thing > 0.5) {
+                  if (dist(mouseX, mouseY, this.temp_x + width / 2, this.temp_y + height / 2) < this.moody_thing * 10) {
+                      // textSize()
+                      ellipse(this.temp_x, this.temp_y, this.moody_thing * 11, this.moody_thing * 11);
+                  }
+              } else if (this.moody_thing < 0.5) {
+                  if (dist(mouseX, mouseY, this.temp_x + width / 2, this.temp_y + height / 2) < (1 - this.moody_thing) * 10) {
+                      ellipse(this.temp_x, this.temp_y, (1 - this.moody_thing) * 11, (1 - this.moody_thing) * 11);
+                  }
+              } else {
+                  if (dist(mouseX, mouseY, this.temp_x + width / 2, this.temp_y + height / 2) < this.moody_thing * 10) {
+                      // textSize()
+                      ellipse(this.temp_x, this.temp_y, this.moody_thing * 11, this.moody_thing * 11);
+                  }
               }
           }
       }
 
+      function Linecircle() {
+          this.innerR = 400;
+          this.outR = 420;
+          this.an = 0;
+          this.fill_col = random(0, 255)
+          this.temp_dis = 0
+          this.moverange = 500
+
+          this.display = function () {
+              stroke(75, 93, 120, this.fill_col)
+              line(this.innerR * sin(this.an), this.innerR * (-cos(this.an)), this.outR * sin(this.an), this.outR * (-cos(this.an)))
+          }
+          this.hover_big = function () {
+              var temp_dis = dist(mouseX, mouseY, width / 2 + this.outR * sin(this.an), height / 2 + this.outR * (-cos(this.an)))
+              if (temp_dis < this.moverange) {
+                  line(this.innerR * sin(this.an), this.innerR * (-cos(this.an)), (this.outR + 2000 / temp_dis) * sin(this.an), (this.outR + 2000 / temp_dis) * (-cos(this.an)))
+              } else {
+                  line(this.innerR * sin(this.an), this.innerR * (-cos(this.an)), this.outR * sin(this.an), this.outR * (-cos(this.an)))
+              }
+          }
+      }
 
   </script>
-  </body>
+</body>
+
 </html>
