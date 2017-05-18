@@ -150,16 +150,73 @@
         textFont(myFont)
         text("\"青青况_", 0, 0)
 
-        for (var i = 0; i < data_spot.length; i++) {
-            //            data_spot[i].movea();
-            data_spot[i].count_pos();
-            data_spot[i].display();
-            data_spot[i].hover_big();
-            // console.log('data_spot[i].a_text' + data_spot[i].a_text)
+        fill(255, 254, 184)
+        ellipse(-3/8*width,-60,14,14)
+        fill(58, 170, 255)
+        ellipse(-3/8*width,0,14,14)
+        fill(100)
+        ellipse(-3/8*width,60,14,14)
+        var temp1 = dist(mouseX,mouseY,-3/8*width+windowWidth/2,height/2)
+        var temp2 = dist(mouseX,mouseY,-3/8*width+windowWidth/2,height/2-60)
+        var temp3 = dist(mouseX,mouseY,-3/8*width+windowWidth/2,60+height/2)
+//        text("var temp"+temp2)
+        if(temp1<30){
+            for (var i = 0; i < data_spot.length; i++) {
+                //            data_spot[i].movea();
+                data_spot[i].count_pos();
+                if(data_spot[i].moody_thing<0.5) {
+                    data_spot[i].display();
+                    data_spot[i].hover_big();
+                    // console.log('data_spot[i].a_text' + data_spot[i].a_text)
 
 
-            //            console.log('an'+data_spot[i].temp_an)
-            data_spot[i].showtext();
+                    //            console.log('an'+data_spot[i].temp_an)
+                    data_spot[i].showtext();
+                }
+            }
+        }else if(temp2<30) {
+
+            for (var i = 0; i < data_spot.length; i++) {
+                //            data_spot[i].movea();
+                data_spot[i].count_pos();
+                if (data_spot[i].moody_thing > 0.5) {
+                    data_spot[i].display();
+                    data_spot[i].hover_big();
+                    // console.log('data_spot[i].a_text' + data_spot[i].a_text)
+
+
+                    //            console.log('an'+data_spot[i].temp_an)
+                    data_spot[i].showtext();
+                }
+            }
+        }else if(temp3<30) {
+            for (var i = 0; i < data_spot.length; i++) {
+                //            data_spot[i].movea();
+                data_spot[i].count_pos();
+                if (data_spot[i].moody_thing === 0.5) {
+                    data_spot[i].display();
+                    data_spot[i].hover_big();
+                    // console.log('data_spot[i].a_text' + data_spot[i].a_text)
+
+
+                    //            console.log('an'+data_spot[i].temp_an)
+                    data_spot[i].showtext();
+                }
+            }
+        }else {
+
+            for (var i = 0; i < data_spot.length; i++) {
+                //            data_spot[i].movea();
+                data_spot[i].count_pos();
+                data_spot[i].display();
+                data_spot[i].hover_big();
+                // console.log('data_spot[i].a_text' + data_spot[i].a_text)
+
+
+                //            console.log('an'+data_spot[i].temp_an)
+                data_spot[i].showtext();
+
+            }
         }
 
     }
@@ -204,7 +261,7 @@
                 ellipse(this.temp_x, this.temp_y, (1 - this.moody_thing) * 5 + sin(frameCount * 100 + random_start) / 2, (1 - this.moody_thing) * 5 + sin(frameCount * 100 + random_start) / 2);
 //
             } else {
-                fill(100, 100)
+                fill(200)
                 ellipse(this.temp_x, this.temp_y, 3, 3);
             }
 //        fill(Math.floor(this.moody_thing * 255));
@@ -248,6 +305,11 @@
                     ellipse(this.temp_x, this.temp_y, this.moody_thing * 7, this.moody_thing * 7);
                 }
             }
+        }
+        this.Sortmoods = function () {
+            fill(58, 170, 255)
+            rect(-width/4,0,20,20)
+
         }
     }
 
