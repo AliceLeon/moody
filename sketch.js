@@ -62,6 +62,7 @@ function setup() {
 }
 
 function draw() {
+
     background('#00193B')
     translate(width / 2, height / 2)
     textSize(100)
