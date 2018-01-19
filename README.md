@@ -24,6 +24,7 @@ Using JSON format for next steps.
 
 The API that tells the emotion value from a sentence is from here [DIYgod's Text2Emotion](https://github.com/DIYgod/Text2Emotion)项目中的API
 
+**Tool**: P5.js. We think it's more flexible and highly scalable.
 
 
 ![Moody.001](./Moody.001.png)
