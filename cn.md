@@ -13,7 +13,7 @@
 
 实时调用会极大地延长等待时间。处于展示的目的，我将数据筛选并处理好，形成了一个可供展示的版本。
 
-您可以[在此访问](https://aliceleon.github.io/moody-data/index.html)
+您可以[在此访问](https://aliceleon.github.io/moody-data)
 
 ![Moody.001](./Moody.001.png)
 

@@ -1,5 +1,5 @@
 # Moody
-👉[Click Me to Visit](https://aliceleon.github.io/moody-data/index.html)
+👉[Click Me to Visit](https://aliceleon.github.io/moody-data)
 
 ### Idea
 
