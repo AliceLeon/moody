@@ -1,7 +1,7 @@
 # Moody
 👉[Click Me to Visit](https://aliceleon.github.io/moody-data/index.html)
 
-#### Idea
+### Idea
 
 My initial intention was to visualise a relationship and how would people show their emotional condition while in it through analysing their social media.
 
@@ -13,7 +13,7 @@ We use Weibo in this case since it's a platform where most people are likely to 
 
 
 
-#### Process
+### Process
 **Step1**: We use python crawls to get one's weibo data, including username, time, comments, likes.
 
 **Step2**: Chose the original and meaningful ones that actually express their feelings. Sentiment analysis.
@@ -30,7 +30,7 @@ The API that tells the emotion value from a sentence is from here [DIYgod's Text
 
 
 
-#### Notes on how to read this :
+### Notes on how to read this :
 
 - Imagine this picture as a 24 hours' clock. The location of the dots represents when a person sends the weibo.
 - The distance from each dot to the centre of the image represents the date of the weibo. In this case, the first weibo was posted in 2011, and the last one was posted in 2017.
@@ -43,7 +43,7 @@ The API that tells the emotion value from a sentence is from here [DIYgod's Text
 
 
 
-#### Unsolved questions:
+### Unsolved questions:
 
 1. Mass data takes a lot of time to process
 2. It's hard to tell which part is meaningful while others are not.
@@ -51,7 +51,7 @@ The API that tells the emotion value from a sentence is from here [DIYgod's Text
 
 
 
-#### Summary
+### Summary
 
 1. The project visualised users' weibo data and provides a good way to see directly and clearly how their mood varies.
 2. The API we use take quite some time to process and it's hard to make a real-time display. In this case, we have already preprocessed all the data we need and it's now a version only for display.
