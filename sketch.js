@@ -148,6 +148,7 @@ function Moody() {
         //              fill(255,Math.floor(this.moody_thing*255));
         var random_start = random(-1, 1)
         if (this.moody_thing > 0.5) {
+
             fill(255, 254, 184, this.moody_thing * 255)
             ellipse(this.temp_x, this.temp_y, this.moody_thing * 8 + sin(frameCount * 100 + random_start) / 2, this.moody_thing * 8 + sin(frameCount * 100 + random_start) / 2);
 //
